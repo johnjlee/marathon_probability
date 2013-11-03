@@ -44,6 +44,7 @@ var display = document.getElementById('time-display');
 function updateDisplay() {
   var value = parseInt(slider.value);
   display.innerHTML = formatTime(value);
+  plotActualPosition(value);
   plotDistribution(distributions[value]);
   updateTable(distributions[value]);
 }

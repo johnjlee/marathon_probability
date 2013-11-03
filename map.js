@@ -7,7 +7,8 @@ var HEATMAP = new google.maps.visualization.HeatmapLayer({
   zIndex: 2
 });
 
-
+var ACTUAL_POSITION_MARKER = null;
+var ACTUAL_POSITION_OFFSET= 1;
 function init() {
   var mapOptions = {
     zoom: 14,
@@ -45,6 +46,13 @@ function init() {
       title: '' + i
     });
   }
+
+  ACTUAL_POSITION_MARKER = new google.maps.Marker({
+    position: new google.maps.LatLng(ACTUAL_POSITIONS[ACTUAL_POSITION_OFFSET][0], ACTUAL_POSITIONS[ACTUAL_POSITION_OFFSET][1]),
+    map: MAP,
+    icon: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=J|39ff14|000000",
+    title: 'jjl'
+  });
 }
 
 
@@ -67,4 +75,9 @@ function plotDistribution(dist) {
 
   MAP.panTo(points[Math.floor(points.length/2)].location);
   HEATMAP.setData(new google.maps.MVCArray(points));
+}
+
+function plotActualPosition(minute) {
+  var pos = ACTUAL_POSITIONS[minute+ACTUAL_POSITION_OFFSET];
+  ACTUAL_POSITION_MARKER.setPosition(new google.maps.LatLng(pos[0], pos[1]));
 }
